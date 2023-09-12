@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock News</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        html {
+            background-image: url('../static/image/back.jpg');
+            background-attachment: fixed;
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mb-10 top-1 w-screen flex flex-col justify-center items-center">
+        <img src="../static/image/logo.jpg" class="w-64 h-64" alt="Logo Image" style="border-radius: 50%;">
+    </div>
+    <div class="bottom-6 m-auto relative" id="container" style="width: 614px; height: 600px;">
+        <img src="" id="bg1" width="614px" height="600px">
+        <span class="font-mono text-lg absolute text-white whitespace-pre-line text-justify" id="News"
+            style="width: 550px; top: 100px; left: 30px; line-height: 2em;">
+            {{News|safe}}
+        </span>
+    </div>
+    <div id="canvasWrapper" class="mb-0 w-screen flex justify-center items-center" style="position: relative; z-index: 1;">
+        <button class="text-white p-3 rounded-md font-sans text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+            onclick="download()">Download Post</button>
+    </div>
+
+    <script>
+        var newbg = document.getElementById("bg1");
+        var background = new Image();
+        background.src = "static/image/" + (Math.floor(Math.random() * 3) + 1) + ".jpg";
+        newbg.src = background.src;
+    </script>
+    <script src="/static/js/h2c.min.js"></script>
+    <script>
+        function download() {
+            html2canvas(document.getElementById("container"), { height: 600, width: 614 }).then(canvas => {
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+                a.download = 'bigbullvasu.jpg';
+                a.click();
+            });
+        }
+    </script>
+</body>
+
+</html>
